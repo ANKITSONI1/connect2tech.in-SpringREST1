@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.c2t.annotation.basic.Employee;
+import com.c2t.annotation.basic.Employee2;
 import com.c2t.annotation.basic.EmployeeVO;
 import com.journaldev.spring.service.EmployeeService;
 
@@ -33,40 +34,43 @@ class EmployeeController {
 		return empService.getSingleData(1l);
 	}
 
-//	@RequestMapping(value = "rest/emp/setData", method = RequestMethod.GET)
-//	public @ResponseBody Employee getDummy2() {
-//		Session session = sf.openSession();
-//
-//		Employee emp = new Employee();
-//		// Employee emp = (Employee) session.get(Employee.class, 1l);
-//		emp.setFirstname("silence");
-//		emp.setCellphone("9999");
-//		emp.setLastname("soni");
-//		session.beginTransaction();
-//
-//		session.save(emp);
-//		session.getTransaction().commit();
-//		return emp;
-//	}
+	@RequestMapping(value = "rest/emp/setData", method = RequestMethod.GET)
+	public @ResponseBody Employee2 getDummy2() {
+		Session session = sf.openSession();
+
+		Employee2 emp1 = new Employee2();
+		Employee emp2 = new Employee();
+		emp1.setFirstname("silence");
+		emp1.setCellphone("9999");
+		emp1.setLastname("soni");
+		emp2.setFirstname("silence");
+		emp2.setCellphone("9999");
+		emp2.setLastname("soni");
+		session.beginTransaction();
+		session.save(emp1);
+		session.save(emp2);
+		session.getTransaction().commit();
+		return emp1;
+	}
 
 	@RequestMapping(value = "rest/em/dummy/getAllData", method = RequestMethod.GET)
 	public @ResponseBody List<Employee> getDummy3() {
 
 		return empService.getAllEmployee();
 	}
-//
-//	@RequestMapping(value = "rest/em/dummy/list", method = RequestMethod.GET)
-//	public @ResponseBody EmployeeVO getDummyEmployeeList()
-//
-//	{
-//
-//		Query q = sf.openSession().createQuery("from Employee");
-//		List<Employee> list = q.list();
-//		EmployeeVO e1 = new EmployeeVO();
-//		e1.setEmployees(list);
-//		return e1;
-//
-//	}
+	//
+	// @RequestMapping(value = "rest/em/dummy/list", method = RequestMethod.GET)
+	// public @ResponseBody EmployeeVO getDummyEmployeeList()
+	//
+	// {
+	//
+	// Query q = sf.openSession().createQuery("from Employee");
+	// List<Employee> list = q.list();
+	// EmployeeVO e1 = new EmployeeVO();
+	// e1.setEmployees(list);
+	// return e1;
+	//
+	// }
 
 	@RequestMapping(value = "rest/em/dummy/getById/{id}", method = RequestMethod.GET)
 	public @ResponseBody Employee getEmployee(@PathVariable Long id)
